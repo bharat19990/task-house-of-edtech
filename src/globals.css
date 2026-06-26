@@ -1,0 +1,185 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 224 71.4% 4.1%;
+    --card: 0 0% 100%;
+    --card-foreground: 224 71.4% 4.1%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 224 71.4% 4.1%;
+    --primary: 262 83% 58%;
+    --primary-foreground: 210 20% 98%;
+    --secondary: 220 14.3% 95.9%;
+    --secondary-foreground: 220.9 39.3% 11%;
+    --muted: 220 14.3% 95.9%;
+    --muted-foreground: 220 8.9% 46.1%;
+    --accent: 220 14.3% 95.9%;
+    --accent-foreground: 220.9 39.3% 11%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 20% 98%;
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 262 83% 58%;
+    --radius: 0.625rem;
+  }
+
+  .dark {
+    --background: 224 71.4% 4.1%;
+    --foreground: 210 20% 98%;
+    --card: 224 71.4% 6%;
+    --card-foreground: 210 20% 98%;
+    --popover: 224 71.4% 6%;
+    --popover-foreground: 210 20% 98%;
+    --primary: 263 70% 50.4%;
+    --primary-foreground: 210 20% 98%;
+    --secondary: 215 27.9% 16.9%;
+    --secondary-foreground: 210 20% 98%;
+    --muted: 215 27.9% 16.9%;
+    --muted-foreground: 217.9 10.6% 64.9%;
+    --accent: 215 27.9% 16.9%;
+    --accent-foreground: 210 20% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 20% 98%;
+    --border: 215 27.9% 16.9%;
+    --input: 215 27.9% 16.9%;
+    --ring: 263 70% 50.4%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* ── TipTap Editor Styles ──────────────────────────────── */
+
+.tiptap {
+  @apply outline-none min-h-[500px] px-8 py-6;
+}
+
+.tiptap p.is-editor-empty:first-child::before {
+  @apply text-muted-foreground pointer-events-none float-left h-0;
+  content: attr(data-placeholder);
+}
+
+.tiptap h1 {
+  @apply text-3xl font-bold mt-6 mb-3;
+}
+
+.tiptap h2 {
+  @apply text-2xl font-semibold mt-5 mb-2;
+}
+
+.tiptap h3 {
+  @apply text-xl font-semibold mt-4 mb-2;
+}
+
+.tiptap p {
+  @apply my-2 leading-7;
+}
+
+.tiptap ul {
+  @apply list-disc pl-6 my-2;
+}
+
+.tiptap ol {
+  @apply list-decimal pl-6 my-2;
+}
+
+.tiptap li {
+  @apply my-1;
+}
+
+.tiptap blockquote {
+  @apply border-l-4 border-primary/40 pl-4 italic my-4 text-muted-foreground;
+}
+
+.tiptap code {
+  @apply bg-muted px-1.5 py-0.5 rounded text-sm font-mono;
+}
+
+.tiptap pre {
+  @apply bg-muted rounded-lg p-4 my-4 overflow-x-auto;
+}
+
+.tiptap pre code {
+  @apply bg-transparent p-0;
+}
+
+.tiptap hr {
+  @apply border-border my-6;
+}
+
+.tiptap a {
+  @apply text-primary underline underline-offset-2 cursor-pointer;
+}
+
+.tiptap mark {
+  @apply bg-yellow-200 dark:bg-yellow-800 rounded px-0.5;
+}
+
+.tiptap ul[data-type="taskList"] {
+  @apply list-none pl-0;
+}
+
+.tiptap ul[data-type="taskList"] li {
+  @apply flex items-start gap-2;
+}
+
+.tiptap ul[data-type="taskList"] li label {
+  @apply mt-1;
+}
+
+/* ── Collaboration Cursor Styles ───────────────────────── */
+
+.collaboration-cursor__caret {
+  @apply relative border-l-2 border-r-0 border-t-0 border-b-0;
+  margin-left: -1px;
+  margin-right: -1px;
+  pointer-events: none;
+  word-break: normal;
+}
+
+.collaboration-cursor__label {
+  @apply absolute -top-5 left-0 text-xs text-white rounded px-1 py-0.5 whitespace-nowrap font-medium;
+  font-size: 11px;
+  line-height: 1.2;
+  user-select: none;
+}
+
+/* ── Ghost text (AI autocomplete) ──────────────────────── */
+
+.ghost-text {
+  @apply text-muted-foreground/50 italic;
+}
+
+/* ── Scrollbar Styling ─────────────────────────────────── */
+
+::-webkit-scrollbar {
+  @apply w-2;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-border rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-muted-foreground/30;
+}
+
+/* ── Smooth Transitions ───────────────────────────────── */
+
+.transition-panel {
+  @apply transition-all duration-300 ease-in-out;
+}
