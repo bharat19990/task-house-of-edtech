@@ -1,7 +1,7 @@
 'use client';
 
-import { useState } from 'react';
-import { signIn } from 'next-auth/react';
+import { useEffect, useState } from 'react';
+import { signIn, useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { FileText, Loader2 } from 'lucide-react';
@@ -13,9 +13,18 @@ import { toast } from 'sonner';
 
 export default function LoginPage() {
   const router = useRouter();
+  const { status } = useSession();
   const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  useEffect(() => {
+    if (status === 'authenticated') {
+      const searchParams = new URLSearchParams(window.location.search);
+      const callbackUrl = searchParams.get('callbackUrl') || '/dashboard';
+      router.replace(callbackUrl);
+    }
+  }, [status, router]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -32,8 +41,9 @@ export default function LoginPage() {
         toast.error('Invalid email or password');
       } else {
         toast.success('Welcome back!');
-        router.push('/dashboard');
-        router.refresh();
+        const searchParams = new URLSearchParams(window.location.search);
+        const callbackUrl = searchParams.get('callbackUrl') || '/dashboard';
+        window.location.href = callbackUrl;
       }
     } catch {
       toast.error('An error occurred. Please try again.');
