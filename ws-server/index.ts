@@ -11,7 +11,7 @@ import connectToDatabase from '../src/lib/mongodb';
 import DocumentModel from '../src/models/Document';
 import Collaborator from '../src/models/Collaborator';
 
-const PORT = parseInt(process.env.WS_PORT ?? '1234', 10);
+const PORT = parseInt(process.env.WS_PORT ?? process.env.PORT ?? '1234', 10);
 
 const server = http.createServer((_req, res) => {
   res.writeHead(200, { 'Content-Type': 'text/plain' });
