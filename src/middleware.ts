@@ -1,7 +1,7 @@
-import { auth } from '@/lib/auth';
+import { middlewareAuth } from '@/lib/auth.config';
 import { NextResponse } from 'next/server';
 
-export default auth((req) => {
+export default middlewareAuth((req) => {
   if (!req.auth) {
     const loginUrl = new URL('/login', req.nextUrl.origin);
     loginUrl.searchParams.set('callbackUrl', req.nextUrl.href);

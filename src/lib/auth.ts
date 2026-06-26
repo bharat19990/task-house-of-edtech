@@ -5,6 +5,7 @@ import connectToDatabase from '@/lib/mongodb';
 import User from '@/models/User';
 import { loginUserSchema } from '@/types/user';
 import logger from '@/lib/logger';
+import { authConfig } from './auth.config';
 
 export const {
   handlers,
@@ -12,6 +13,7 @@ export const {
   signIn,
   signOut,
 } = NextAuth({
+  ...authConfig,
   providers: [
     CredentialsProvider({
       name: 'credentials',
@@ -53,26 +55,4 @@ export const {
       },
     }),
   ],
-  session: {
-    strategy: 'jwt',
-    maxAge: 7 * 24 * 60 * 60, 
-  },
-  pages: {
-    signIn: '/login',
-  },
-  callbacks: {
-    async jwt({ token, user }) {
-      if (user) {
-        token.id = user.id;
-      }
-      return token;
-    },
-    async session({ session, token }) {
-      if (token?.id) {
-        session.user.id = token.id as string;
-      }
-      return session;
-    },
-  },
-  secret: process.env.NEXTAUTH_SECRET || process.env.AUTH_SECRET,
 });
